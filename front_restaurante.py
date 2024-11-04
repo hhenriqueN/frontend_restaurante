@@ -8,7 +8,7 @@ st.write('')
 
 # Inicializa o estado da sessão para pedidos se não existir
 if 'pedidos_recebidos' not in st.session_state:
-    st.session_state.pedidos_recebidos = ["Pedido 1: Pizza", "Pedido 2: Salada", "Pedido 3: Batata Frita", 'pedido']
+    st.session_state.pedidos_recebidos = ["Pedido 1: Pizza", "Pedido 2: Salada", "Pedido 3: Batata Frita"]
 if 'pedidos_em_andamento' not in st.session_state:
     st.session_state.pedidos_em_andamento = ["Pedido 4: Hambúrguer"]
 if 'pedidos_prontos' not in st.session_state:
@@ -25,6 +25,7 @@ def create_box(pedidos, button_text, action_func):
             """, unsafe_allow_html=True)
             if st.button(button_text, key=f"{pedido}_{button_text}"):
                 action_func(pedido)
+                st.rerun()  # Força a re-execução do script para atualizar a interface
 
 # Funções para atualizar o status dos pedidos
 def mover_para_em_andamento(pedido):
@@ -54,9 +55,7 @@ with col3:
     st.markdown("<h3 style='text-align: center;'>Pedidos prontos</h3>", unsafe_allow_html=True)
     create_box(st.session_state.pedidos_prontos, "Concluir pedido", concluir_pedido)
 
-
 left, l_c, center, r_c, right = st.columns(5)
 
 with center:
-
     st.image('insper.svg', use_column_width="auto")
