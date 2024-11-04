@@ -48,10 +48,12 @@ st.write('')
 # Inicializa o estado da sessão para pedidos se não existir
 if 'pedidos_recebidos' not in st.session_state:
     resposta = fazer_requisicao('/pedidos', method="GET")
-    # Extrai apenas os códigos dos itens e a senha de cada pedido
     if resposta and "pedidos_em_andamento" in resposta:
         st.session_state.pedidos_recebidos = [
-            f"Senha {pedido['senha']}: Itens {pedido['codigos_itens']}"
+            {
+                "senha": pedido['senha'],
+                "descricao": f"Senha {pedido['senha']}: Itens {pedido['codigos_itens']}"
+            }
             for pedido in resposta["pedidos_em_andamento"]
         ]
     else:
@@ -67,12 +69,11 @@ def create_box(pedidos, button_text, action_func):
         with st.container():
             st.markdown(f"""
                 <div style="border: 1px solid black;border-radius: 10px; padding: 10px; margin: 5px;">
-                    <div style="min-height: 50px;">{pedido}</div>
+                    <div style="min-height: 50px;">{pedido['descricao']}</div>
                 </div>
             """, unsafe_allow_html=True)
-            if st.button(button_text, key=f"{pedido}_{button_text}"):
+            if st.button(button_text, key=f"{pedido['senha']}_{button_text}"):
                 action_func(pedido)
-                st.rerun()  # Força a re-execução do script para atualizar a interface
                 st.rerun()  # Força a re-execução do script para atualizar a interface
 
 # Funções para atualizar o status dos pedidos
@@ -85,7 +86,9 @@ def mover_para_pronto(pedido):
     st.session_state.pedidos_prontos.append(pedido)
 
 def concluir_pedido(pedido):
+    senha = pedido['senha']
     st.session_state.pedidos_prontos.remove(pedido)
+    fazer_requisicao(f'pedidos/{senha}', method="DELETE")
 
 # Colunas para os pedidos
 col1, col2, col3 = st.columns(3)
