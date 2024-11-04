@@ -73,6 +73,7 @@ def create_box(pedidos, button_text, action_func):
             if st.button(button_text, key=f"{pedido}_{button_text}"):
                 action_func(pedido)
                 st.rerun()  # Força a re-execução do script para atualizar a interface
+                st.rerun()  # Força a re-execução do script para atualizar a interface
 
 # Funções para atualizar o status dos pedidos
 def mover_para_em_andamento(pedido):
