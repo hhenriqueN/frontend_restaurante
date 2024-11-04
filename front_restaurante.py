@@ -4,10 +4,11 @@ import streamlit as st
 st.set_page_config(page_title="Painel de Controle Restaurante", layout="wide")
 
 st.markdown("<h1 style='text-align: center;'>Painel de Controle Restaurante</h1>", unsafe_allow_html=True)
+st.write('')
 
 # Inicializa o estado da sessão para pedidos se não existir
 if 'pedidos_recebidos' not in st.session_state:
-    st.session_state.pedidos_recebidos = ["Pedido 1: Pizza", "Pedido 2: Salada", "Pedido 3: Batata Frita"]
+    st.session_state.pedidos_recebidos = ["Pedido 1: Pizza", "Pedido 2: Salada", "Pedido 3: Batata Frita", 'pedido']
 if 'pedidos_em_andamento' not in st.session_state:
     st.session_state.pedidos_em_andamento = ["Pedido 4: Hambúrguer"]
 if 'pedidos_prontos' not in st.session_state:
@@ -52,3 +53,10 @@ with col2:
 with col3:
     st.markdown("<h3 style='text-align: center;'>Pedidos prontos</h3>", unsafe_allow_html=True)
     create_box(st.session_state.pedidos_prontos, "Concluir pedido", concluir_pedido)
+
+
+left, l_c, center, r_c, right = st.columns(5)
+
+with center:
+
+    st.image('insper.svg', use_column_width="auto")
