@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 # Base URL da API do backend (Flask)
-BASE_URL = "https://insper-food-w886.onrender.com/"
+BASE_URL = "https://insper-food-1-0oq8.onrender.com/"
 
 # Função genérica para fazer requisições ao backend
 def fazer_requisicao(endpoint, method="GET", params=None, data=None):
@@ -52,7 +52,7 @@ if 'pedidos_recebidos' not in st.session_state:
         st.session_state.pedidos_recebidos = [
             {
                 "senha": pedido['senha'],
-                "descricao": f"Senha {pedido['senha']}: Itens {pedido['codigos_itens']}"
+                "descricao": f"Senha {pedido['senha']}: Itens {pedido['nome_comida']}"
             }
             for pedido in resposta["pedidos_em_andamento"]
         ]
