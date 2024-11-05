@@ -96,15 +96,26 @@ col1, col2, col3 = st.columns(3)
 # Seções dos pedidos com subheaders
 with col1:
     st.markdown("<h3 style='text-align: center;'>Pedidos recebidos</h3>", unsafe_allow_html=True)
-    create_box(st.session_state.pedidos_recebidos, 'Atualizar para "Em andamento"', mover_para_em_andamento)
+    if st.session_state.pedidos_recebidos:
 
+        create_box(st.session_state.pedidos_recebidos, 'Atualizar para "Em andamento"', mover_para_em_andamento)
+    else:
+        st.markdown("<h5 style='text-align: center;'>Nenhum pedido recebido.</h5>", unsafe_allow_html=True)
 with col2:
     st.markdown("<h3 style='text-align: center;'>Pedidos em andamento</h3>", unsafe_allow_html=True)
-    create_box(st.session_state.pedidos_em_andamento, 'Atualizar para "Pronto"', mover_para_pronto)
+    if st.session_state.pedidos_em_andamento:
+
+        create_box(st.session_state.pedidos_em_andamento, 'Atualizar para "Pronto"', mover_para_pronto)
+    else:
+        st.markdown("<h5 style='text-align: center;'>Nenhum pedido em andamento.</h5>", unsafe_allow_html=True)
 
 with col3:
     st.markdown("<h3 style='text-align: center;'>Pedidos prontos</h3>", unsafe_allow_html=True)
-    create_box(st.session_state.pedidos_prontos, "Concluir pedido", concluir_pedido)
+    if st.session_state.pedidos_prontos:
+        create_box(st.session_state.pedidos_prontos, "Concluir pedido", concluir_pedido)
+    else:
+        st.markdown("<h5 style='text-align: center;'>Nenhum pedido pronto para retirada.</h5>", unsafe_allow_html=True)
+
 
 left, l_c, center, r_c, right = st.columns(5)
 
