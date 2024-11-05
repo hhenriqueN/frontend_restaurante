@@ -52,7 +52,7 @@ if 'pedidos_recebidos' not in st.session_state:
         st.session_state.pedidos_recebidos = [
             {
                 "senha": pedido['senha'],
-                "descricao": f"Senha {pedido['senha']}: Itens {pedido['nome_comida']}"
+                "descricao": f"Senha {pedido['senha']}: Itens: {', '.join(pedido['nome_comida'])}."
             }
             for pedido in resposta["pedidos_em_andamento"]
         ]
