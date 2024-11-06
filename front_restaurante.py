@@ -1,6 +1,6 @@
 import streamlit as st
 import requests
-
+#
 # Base URL da API do backend (Flask)
 BASE_URL = "https://insper-food-1-0oq8.onrender.com/"
 
